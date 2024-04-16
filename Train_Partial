@@ -1,0 +1,67 @@
+# Import des bibliothèques nécessaires
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score
+
+# Chargement des données
+data = pd.read_csv("cancer.csv")
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Création du modèle de régression logistiques
+model = LogisticRegression()
+
+# Entraînement du modèle
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+# Évaluation des performances du modèle
+accuracy = accuracy_score(y_test, y_pred)
+print("Précision du modèle : {:.2f}%".format(accuracy * 100))
+
+
+
+
+
+
+
+
+# Importer les bibliothèques 
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score
+
+# Charger les données
+data = pd.read_csv("cancer.csv")  # Assurez-vous de fournir le chemin correct vers votre fichier de données
+
+# Séparer les caractéristiques (X) de la variable cible (y)
+#X =data.drop("cancer_du_sein", axis=1)
+#y =data["cancer_du_sein"]
+
+# Diviser les données en ensembles d'entraînement et de test
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Créer un modèle de régression logistique
+model = LogisticRegression()
+
+# Entraîner le modèle sur l'ensemble d'entraînement
+model.fit(X_train, y_train)
+
+# Faire des prédictions sur l'ensemble de test
+y_pred = model.predict(X_test)
+
+# Évaluer les performances du modèle
+accuracy = accuracy_score(y_test, y_pred)
+precision = precision_score(y_test, y_pred)
+recall = recall_score(y_test, y_pred)
+f1 = f1_score(y_test, y_pred)
+
+# Afficher les résultats
+print("Précision :", precision)
+print("Rappel :", recall)
+print("F1-score :", f1)
+
+
