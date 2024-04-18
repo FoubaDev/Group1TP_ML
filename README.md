@@ -6,7 +6,7 @@ Topics/Thematique
 
 # Group1-Diagnostic medical 
 
-##" Algorithme ML : Arbre de décision
+##" 	
 
 Description : Développer un modèle d’arbre de
 décision pour diagnostiquer des affections médicales basées sur les
