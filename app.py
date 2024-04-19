@@ -7,18 +7,17 @@ import joblib
 import pandas as pd
 import numpy as np
 import streamlit as st
-import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit_option_menu import option_menu
 
 
 
-@st.cache_resource
+@st.cache_resource(experimental_allow_widgets=True)
 def load_data_csv():
    df = pd.read_csv("Breast_cancer_data.csv")
    return df
 
-@st.cache_resource
+@st.cache_resource(experimental_allow_widgets=True)
 def load_data_sav():
    loaded_model = joblib.load(open('Breast_cancer_data.sav', 'rb'))
    return loaded_model
@@ -28,18 +27,25 @@ df = load_data_csv()
 loaded_model = load_data_sav()
 
 
-@st.cache_resource
+@st.cache_resource(experimental_allow_widgets=True)
 def predict(input_data):
     
     my_array = np.array(input_data)
     input_reshaped = my_array.reshape(1,-1)
     
     prediction = loaded_model.predict(input_reshaped)
-    
+        
     st.write("The prediction is :")
     st.write(prediction)
     
+@st.cache_resource(experimental_allow_widgets=True)
+def visualization():
+    st.title('Vue descriptive du dataset ')
+    st.write(df.describe())
     
+        
+        
+   
 
 # create column for dashbaord
 @st.cache_resource(experimental_allow_widgets=True)
@@ -70,9 +76,9 @@ def main():
         selected = option_menu ("Diagnostic Medical Prediction System",
                             
                             ['Home',
-                             'Prediction',
                              'Visualization',
                             'Dataset',
+                            'Prediction',
                             'Authors',
                             ],
                             icons = ['house','bi bi-file-medical-fill','person','book','person'],
@@ -88,12 +94,13 @@ def main():
         dashboard()
 
     if(selected == "Dataset") :
+        st.title("Jeu de données")
         st.write(df)
         st.write(df.shape)
-        camembert()
-    if(selected == "Prediction") :
-    
        
+    if(selected == "Prediction") :
+        
+        st.title("Veuillez entrer les valeurs des caractéristiques")
         col1, col2, col3, col4, col5 = st.columns(5)
     
         with col1:
@@ -123,15 +130,16 @@ def main():
         st.success(BreathCancer)
     
     if(selected=="Visualization"):
-        camembert()
         
+        visualization()
+        camembert()
         
     if(selected == "Authors") :
          
          
         st.subheader("Authors :\n 1. ADOUM AHMAT GRENE \n\n2. BOKHIT ABDOULAYE DIGUI \n\n3. LAGRE GABBA BERTRAND \n\n4. MADJINGUESSOUM BRICE  " )
    
-        st.write(" SCyberSecurity Students at  Chad's Virtual University. ") 
+        st.write(" CyberSecurity Students at  Chad's Virtual University. ") 
         st.write("Github link  : https://github.com/FoubaDev/Group1TP_ML.git \n")
 
         st.write(" It is our pleasure to see you reading our work.")
